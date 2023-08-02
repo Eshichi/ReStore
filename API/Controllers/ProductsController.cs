@@ -26,7 +26,7 @@ namespace API.Controllers
         public async Task<ActionResult<List<Product>>> GetProduct()
         {
             //??
-            // var products = context.Products.ToList();
+            // var products = _context.Products.ToList();
             // return Ok(products);
 
             return await _context.Products.ToListAsync();
