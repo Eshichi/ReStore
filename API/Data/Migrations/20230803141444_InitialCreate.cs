@@ -11,6 +11,20 @@ namespace API.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Champions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Lane = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Champions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -33,6 +47,9 @@ namespace API.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Champions");
+
             migrationBuilder.DropTable(
                 name: "Products");
         }

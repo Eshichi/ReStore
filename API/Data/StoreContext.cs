@@ -10,5 +10,7 @@ namespace API.Data
         }
 
         public DbSet<Product>  Products { get; set; }
+        public DbSet<Champion>  Champions { get; set; }
+
     }
  }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20230731155012_InitialCreate")]
+    [Migration("20230803141444_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -18,6 +18,23 @@ namespace API.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.9");
+
+            modelBuilder.Entity("API.Entities.Champion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Lane")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Champions");
+                });
 
             modelBuilder.Entity("API.Entities.Product", b =>
                 {
