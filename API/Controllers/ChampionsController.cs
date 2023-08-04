@@ -9,9 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ChampionsController : ControllerBase
+    public class ChampionsController : BaseApiController
     {
         private readonly StoreContext _context; //??
         public ChampionsController(StoreContext context)
