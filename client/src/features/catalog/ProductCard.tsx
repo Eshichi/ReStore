@@ -1,12 +1,23 @@
 import { Avatar, Button, Card, CardActions, CardContent,CardHeader, CardMedia, Typography } from '@mui/material'
 import { Product } from '../../app/models/products';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import agent from '../../app/api/agent';
+import { LoadingButton } from '@mui/lab';
 
 interface Props {
     product: Product;
 }
 
 export const ProductCard = ({ product }: Props) => {
+    const [loading, setLoading] = useState(false);
+
+    const handleAddItem = (productId : number) =>{
+        setLoading(true);
+        agent.Basket.addItem(productId)
+        .catch(error => console.log("error product card"))
+        .finally(() => setLoading(false))
+    }
     return (
         <>
             <Card>
@@ -34,7 +45,12 @@ export const ProductCard = ({ product }: Props) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Add to cart</Button>
+                    <LoadingButton 
+                        loading={loading}
+                        onClick={() => handleAddItem(product.id)}
+                        size="small">
+                            Add to cart
+                        </LoadingButton>
                     <Button component={Link} to={`/catalog/${product.id}`} size="small">View</Button>
                 </CardActions>
             </Card>
