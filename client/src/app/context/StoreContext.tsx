@@ -15,13 +15,12 @@ export function useStoreContext() {
     if (context === undefined) {
         throw Error('Ooops - not inside the provider')
     }
-
     return context;
 }
 
 export function StoreProvider({children}: PropsWithChildren<any>)
 {
-    const [basket, setBasket] = useState<Basket | null>(null)
+    const [basket, setBasket] = useState<Basket | null>(null);
 
     function removeItem(productId: number, quantity: number)
     {
@@ -30,8 +29,11 @@ export function StoreProvider({children}: PropsWithChildren<any>)
         const itemIndex = items.findIndex(i =>i.productId === productId)
         if(itemIndex >= 0)
         {
+            console.log(items[itemIndex] ,"in")
             items[itemIndex].quantity -= quantity;
-            if (items[itemIndex].quantity === 0) items.splice(itemIndex,1);
+            
+            if (items[itemIndex].quantity === 0) items.splice(itemIndex , 1)
+
             setBasket(prevState => {
                 return {...prevState!, items}
             })
