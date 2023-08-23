@@ -5,7 +5,6 @@ interface StoreContextValue {
     basket: Basket | null;
     setBasket: (basket: Basket) => void;
     removeItem: (productId: number, quantity: number) => void;
-    // sampleFunch: (e : string) => {console.log("test")};
 }
 
 export const StoreContext = createContext<StoreContextValue | undefined>(undefined);
@@ -27,6 +26,9 @@ export function StoreProvider({children}: PropsWithChildren<any>)
         if (!basket) return;
         const items = [...basket.itemDtos];
         const itemIndex = items.findIndex(i =>i.productId === productId)
+
+        console.log("store items" , items)
+        console.log("store context" , itemIndex)
         if(itemIndex >= 0)
         {
             items[itemIndex].quantity -= quantity;
