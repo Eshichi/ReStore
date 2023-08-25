@@ -1,6 +1,5 @@
-import { TableContainer, Paper, Table, TableBody, TableRow, TableCell, Typography, Grid } from "@mui/material";
+import { TableContainer, Paper, Table, TableBody, TableRow, TableCell } from "@mui/material";
 import { useStoreContext } from "../../app/context/StoreContext";
-import { useEffect, useState } from "react";
 import { currencyFormat } from "../../app/util/util";
 
 export default function BasketSummary() {
