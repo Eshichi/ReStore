@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface CounterState {
     data: number;
     title: string;
+    test: string;
 }
 
 const initialState: CounterState = {
     data: 42,
-    title: 'Final Fantasy I-VI with redux toolkit'
+    title: 'Final Fantasy I-VI with redux toolkit',
+    test: ''
 }
 
 export const counterSlice = createSlice({

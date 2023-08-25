@@ -6,6 +6,8 @@ import { useStoreContext } from '../../app/context/StoreContext';
 import { LoadingButton } from '@mui/lab';
 import BasketSummary from './BasketSummary';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/store/configureStore';
+import { removeItem, setBasket } from './basketSlice';
 
 export const BasketPage = () => {
     // const [loading, setLoading] = useState(true);
@@ -20,7 +22,8 @@ export const BasketPage = () => {
 
     // if (loading) return <LoadingComponent message='Loading basket.' />
 
-    const { basket, setBasket, removeItem } = useStoreContext();
+    const { basket} = useAppSelector(state =>  state.basket);
+    const dispatch = useAppDispatch(); 
     // const [loading, setLoading] = useState(false);
 
     const [status, setStatus] = useState({
@@ -31,15 +34,15 @@ export const BasketPage = () => {
     function handleAddItem(productId: number, name: string) {
         setStatus({loading: true , name})
         agent.Basket.addItem(productId)
-            .then(basket => setBasket(basket))
+            .then(basket => dispatch(setBasket(basket)))
             .catch(error => console.log(error))
             .finally(() => setStatus({loading: false, name: ''}));
     }
 
     const handleRemoveItem = (productId: number, quantity = 1, name: string) => {
         setStatus({loading: true , name})
-        agent.Basket.removeItem(productId, quantity)
-        .then(() =>  removeItem(productId, quantity))
+        agent.Basket.removeItem(productId, quantity) //remove back
+        .then(() =>  dispatch(removeItem({productId, quantity}))) // remove front
         .catch(error =>  console.log(error))
         .finally(() => setStatus({loading: false, name: ''}))
     }
@@ -89,7 +92,7 @@ export const BasketPage = () => {
                                 <TableCell align="right">
                                     <LoadingButton
                                         loading={status.loading && status.name === "delete" + item.productId}
-                                        onClick={() => handleRemoveItem(item.productId, 1, 'delete'+ item.productId)} color='error'>
+                                        onClick={() => handleRemoveItem(item.productId, item.quantity, 'delete'+ item.productId)} color='error'>
                                         <Delete />
                                     </LoadingButton>
                                 </TableCell>
